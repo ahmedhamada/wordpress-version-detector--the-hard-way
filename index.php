@@ -49,7 +49,7 @@ function form(){
 echo 
 '
 <form style="text-align:center;width: 555px;margin: 0 auto;background-color: white;padding: 22px;margin-top: 28px;">
-<h3 style="text-align:center">enter your site </h3>
+<h4 style="text-align:center">wordpress version detector - <b>the hard way</b> </h4>
 	<input type="url" size="65" name="site" required/>
 	<input type="submit" name="">
 	<br> 
