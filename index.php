@@ -45,9 +45,6 @@ function init_progress(){
 	echo '<div id="information" style="width:500px margin:0 auto;"></div>';
 }
 
-// $site = 'http://wordpress.dev/wordpress/';
-// $site = 'http://wordpress.dev/wordpress4.5.13/';
-
 function form(){
 echo 
 '
@@ -137,10 +134,9 @@ foreach ($files_with_hashes as $path => $value) {
 	$request_counter++;
 	//request js files only
 	if (stripos($path, '.js') == true OR stripos($path, '.txt') ) {
-	// $reqests_number--;
-	// $reqests_number--;
-	// if ($reqests_number <= 0) {break;}
-	if ($request_counter >= $reqests_number) {break;}
+
+		if ($request_counter >= $reqests_number) {break;}
+		
 		$response = Requests::get($site.$path);
 		$hash_the_response = md5($response->body);
 		add_points($hash_the_response);
