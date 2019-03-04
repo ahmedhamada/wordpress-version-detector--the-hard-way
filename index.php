@@ -1,11 +1,6 @@
 <style type="text/css">
-	html , body{
-		background-color: #264348;
-		text-align: center;
-		margin: 0 auto;
-	}
+	html { background-color: #264348; text-align: center; margin: 0 auto;}
 </style>
-
 <?php
 $start = time(); set_time_limit(3600); error_reporting(2); $site= $_GET['site'];
 
