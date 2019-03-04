@@ -135,7 +135,7 @@ foreach ($files_with_hashes as $path => $value) {
 		try{
 			$response = Requests::get($site.$path);
 		}catch(exception $e){
-			if (!$response) {echo '<center><h2 style="color:red;">site maybe down - failed to request the site :(</h2></center>';}else{echo "what";}
+			if (!$response) {echo '<center><h2 style="color:red;">site maybe down - failed to request the site :(</h2></center>';}
 			die("error".$e->getmessage());
 		}
 
