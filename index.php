@@ -1,6 +1,7 @@
 <style type="text/css">
 	html { background-color: #264348; text-align: center; margin: 0 auto;}
 </style>
+
 <?php
 $start = time(); set_time_limit(3600); error_reporting(2); $site= $_GET['site'];
 
@@ -58,12 +59,10 @@ if (!isset($site)) {
 	form();	exit();
 }
 
-
 //site not well formatted
 if (!filter_var($site, FILTER_VALIDATE_URL)) {
 	form();	exit('<h3 style="text-align:center; color:red">enter site only </h3>');
 }
-
 
 //add / if not exist 
 if (!substr($site, -1) !== '/') $site=$site.'/';
@@ -72,12 +71,13 @@ foreach ($all_files as $index => $file_from_directory) {
 	
 	include_once "versions/$file_from_directory";
 	foreach ($filehashes as $filename => $hash) {
+		//god only know what is going on :)
 		$files_with_hashes[$filename][]=$hash;
 		$versions_with_hashes[$file_from_directory][]=$hash;
 	}
 }
 	// var_dump($files_with_hashes);
-	// var_dump($versions_with_hashes); // version[verion]  =  array(hash)
+	// var_dump($versions_with_hashes); //version[verion]  =  array(hash)
 
 
 function add_points($response_hash){
@@ -123,7 +123,6 @@ init_progress();
 
 $reqests_number=500;
 $request_counter=0;
-
 //our requests - version 4 files
 foreach ($files_with_hashes as $path => $value) {
 	$request_counter++;
@@ -132,7 +131,16 @@ foreach ($files_with_hashes as $path => $value) {
 
 		if ($request_counter >= $reqests_number) {break;}
 		
-		$response = Requests::get($site.$path);
+
+		try{
+			$response = Requests::get($site.$path);
+		}catch(exception $e){
+			if (!$response) {echo '<center><h2 style="color:red;">site maybe down - failed to request the site :(</h2></center>';}else{echo "what";}
+			die("error".$e->getmessage());
+		}
+
+		// var_dump($response);
+		
 		$hash_the_response = md5($response->body);
 		add_points($hash_the_response);
 		
