@@ -121,7 +121,7 @@ function print_points()
 
 init_progress();
 
-$reqests_number=500;
+$reqests_number=350;
 $request_counter=0;
 //our requests - version 4 files
 foreach ($files_with_hashes as $path => $value) {
@@ -130,7 +130,6 @@ foreach ($files_with_hashes as $path => $value) {
 	if (stripos($path, '.js') == true OR stripos($path, '.txt') ) {
 
 		if ($request_counter >= $reqests_number) {break;}
-		
 
 		try{
 			$response = Requests::get($site.$path);
@@ -138,8 +137,6 @@ foreach ($files_with_hashes as $path => $value) {
 			if (!$response) {echo '<center><h2 style="color:red;">site maybe down - failed to request the site :(</h2></center>';}
 			die("error".$e->getmessage());
 		}
-
-		// var_dump($response);
 		
 		$hash_the_response = md5($response->body);
 		add_points($hash_the_response);
